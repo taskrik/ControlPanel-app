@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
-import testReducers from './testReducers'
+import feeder from './feeder'
 
 export default combineReducers({
-    testReducers
+    feeder
 });
