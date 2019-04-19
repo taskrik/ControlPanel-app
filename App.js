@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { createAppContainer, createStackNavigator } from "react-navigation";
 import HomePage from "./src/components/screens/HomePage";
-
+import CatFeeder from "./src/components/screens/CatFeeder"
 
 const AppNavigator = createStackNavigator(
   {
@@ -10,6 +10,9 @@ const AppNavigator = createStackNavigator(
       navigationOptions: {
         header: null
       }
+    },
+    CatFeeder: {
+      screen: CatFeeder,
     }
   },
   {
