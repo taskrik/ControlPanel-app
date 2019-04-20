@@ -12,7 +12,6 @@ export default feeder;
 
 export const openFeeder = () => dispatch => {
   url = `${Config.API_URL}` + "/on";
-  console.log("url:", url);
 
   Axios.post(url)
     .then(res => res.data)
@@ -32,7 +31,6 @@ export const openFeeder = () => dispatch => {
 
 export const closeFeeder = () => dispatch => {
   url = `${Config.API_URL}/off`;
-  console.log("url: ", url);
 
   Axios.post(url)
     .then(res => res.data)
