@@ -31,10 +31,6 @@ export const openFeeder = () => dispatch => {
 };
 
 export const closeFeeder = () => dispatch => {
-  dispatch({
-    type: feeder.CLOSE_FEEDER
-  });
-
   url = `${Config.API_URL}/off`;
   console.log("url: ", url);
 
