@@ -1,15 +1,13 @@
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { TouchableOpacity } from "react-native-gesture-handler";
-
 
 export class HomePage extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('CatFeeder')}
+          onPress={() => this.props.navigation.navigate("CatFeeder")}
           style={{
             borderRadius: 10,
             width: 150,
