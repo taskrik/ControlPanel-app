@@ -24,7 +24,12 @@ export class CatFeeder extends Component {
             <Text style={{ fontSize: 18 }}>Its feeding time!</Text>
           )}
           {serverMessage && (
-            <Text style={{ fontSize: 18 }}>{serverMessage.message}</Text>
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <Text style={{ fontSize: 26, marginBottom:20 }}>
+                You fed the cat {serverMessage.timesUsed} times
+              </Text>
+              <Text style={{ fontSize: 20, color: serverMessage.message === 'Feeder closed!'? 'red' : 'green'  }}>{serverMessage.message}</Text>
+            </View>
           )}
         </View>
         <View>
