@@ -17,14 +17,7 @@ export class CatFeeder extends Component {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <View
-          style={{
-            marginBottom: 50,
-            borderWidth: 0.5,
-            height: 200,
-            width: 300,
-            alignItems: "center",
-            justifyContent: "center"
-          }}
+          style={styles.messageContainer}
         >
           {!serverMessage && (
             <Text style={{ fontSize: 18 }}>Its feeding time!</Text>
@@ -104,9 +97,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "green"
   },
-  text: { fontSize: 18, color: "white", fontWeight: "bold" }
+  text: { fontSize: 18, color: "white", fontWeight: "bold" },
+  messageContainer:{
+    marginBottom: 50,
+    borderWidth: 0.5,
+    height: 200,
+    width: 300,
+    alignItems: "center",
+    justifyContent: "center"
+  }
 });
 
 export default connect(
