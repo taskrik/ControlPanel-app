@@ -4,7 +4,12 @@ import { Button } from "native-base";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { connect } from "react-redux";
 
-import { closeFeeder, openFeeder } from "../../actions/feeder";
+import {
+  closeFeeder,
+  openFeeder,
+  resetFeeder,
+  getFeederState
+} from "../../actions/feeder";
 
 export class CatFeeder extends Component {
   state = {
@@ -12,13 +17,15 @@ export class CatFeeder extends Component {
     disableCloseButton: true
   };
 
+  componentDidMount() {
+    this.props.getFeederState();
+  }
+
   render() {
     const { serverMessage } = this.props.feeder;
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <View
-          style={styles.messageContainer}
-        >
+        <View style={styles.messageContainer}>
           {!serverMessage && (
             <Text style={{ fontSize: 18 }}>Its feeding time!</Text>
           )}
@@ -27,10 +34,25 @@ export class CatFeeder extends Component {
               <Text style={{ fontSize: 26, marginBottom: 20 }}>
                 You fed the cat {serverMessage.feederInfo.timesUsed} times
               </Text>
+              <View
+                style={{
+                  flexDirection: "row"
+                }}
+              >
+                <Text
+                  style={{ fontSize: 20, marginBottom: 20, marginRight: 10 }}
+                >
+                  Last: {serverMessage.feederInfo.hours[0]}
+                </Text>
 
-              <Text style={{ fontSize: 20, marginBottom: 20 }}>
-                Last: {serverMessage.feederInfo.hours[0]}
-              </Text>
+                <TouchableOpacity onPress={() => this.props.resetFeeder()}>
+                  <Text
+                    style={{ fontSize: 20, marginBottom: 20, color: "red" }}
+                  >
+                    Reset
+                  </Text>
+                </TouchableOpacity>
+              </View>
               <Text
                 style={{
                   fontSize: 20,
@@ -45,7 +67,8 @@ export class CatFeeder extends Component {
         </View>
         <View>
           <Button
-            style={{...styles.button,
+            style={{
+              ...styles.button,
               backgroundColor: this.state.disableOpenButton ? "grey" : "green"
             }}
             onPress={() => {
@@ -61,7 +84,8 @@ export class CatFeeder extends Component {
           </Button>
           <Button
             disabled={this.state.disableCloseButton}
-            style={{...styles.button,
+            style={{
+              ...styles.button,
               backgroundColor: this.state.disableCloseButton ? "grey" : "red"
             }}
             onPress={() => {
@@ -86,7 +110,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   openFeeder,
-  closeFeeder
+  closeFeeder,
+  resetFeeder,
+  getFeederState
 };
 
 const styles = StyleSheet.create({
@@ -96,10 +122,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderRadius: 10,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   text: { fontSize: 18, color: "white", fontWeight: "bold" },
-  messageContainer:{
+  messageContainer: {
     marginBottom: 50,
     borderWidth: 0.5,
     height: 200,
