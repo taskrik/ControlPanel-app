@@ -24,6 +24,21 @@ export default (state = {}, action) => {
         ...state,
         error: action.payload
       };
+    case feeder.RESET_FEEDER:
+      return {
+        ...state,
+        serverMessage: action.payload
+      };
+    case feeder.GET_FEEDER_STATE:
+      return {
+        ...state,
+        serverMessage: action.payload
+      };
+    case feeder.FAILED_TO_GET_FEEDER_STATE:
+      return {
+        ...state,
+        error: action.payload
+      };
 
     default:
       return state;
