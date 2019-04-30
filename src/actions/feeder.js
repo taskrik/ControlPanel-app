@@ -9,7 +9,11 @@ const feeder = {
   RESET_FEEDER: "feeder/RESET_FEEDER",
   FAILED_TO_RESET_FEEDERR: "feeder/FAILED_TO_RESET_FEEDER",
   GET_FEEDER_STATE: "feeder/GET_FEEDER_STATE",
-  FAILED_TO_GET_FEEDER_STATE: "feeder/FAILED_TO_GET_FEEDER_STATE"
+  FAILED_TO_GET_FEEDER_STATE: "feeder/FAILED_TO_GET_FEEDER_STATE",
+  GET_SNAPSHOT: "feeder/GET_SNAPSHOT",
+  FAILED_TO_GET_SNAPSHOT: "feeder/FAILED_TO_GET_SNAPSHOT",
+  TAKE_SNAPSHOT: "feeder/TAKE_SNAPSHOT",
+  FAILED_TO_TAKE_SNAPSHOT: "feeder/FAILED_TO_TAKE_SNAPSHOT"
 };
 
 export default feeder;
@@ -33,6 +37,44 @@ export const getFeederState = () => dispatch => {
     });
 };
 
+export const getSnapShot = () => dispatch => {
+  url = `${Config.API_URL}` + "/snapshot/get";
+
+  Axios.get(url)
+    .then(res => res.data)
+    .then(data => console.log(data))
+    // .then(data => {
+    //   dispatch({
+    //     type: feeder.GET_SNAPSHOT,
+    //     payload: data
+    //   });
+    // })
+    .catch(error => {
+      dispatch({
+        type: feeder.FAILED_TO_GET_SNAPSHOT,
+        error: error.message
+      });
+    });
+};
+
+export const takeSnapShot = () => dispatch => {
+  url = `${Config.API_URL}` + "/snapshot/take";
+
+  Axios.post(url)
+    .then(res => res.data)
+    .then(data => {
+      dispatch({
+        type: feeder.TAKE_SNAPSHOT,
+        payload: data
+      });
+    })
+    .catch(error => {
+      dispatch({
+        type: feeder.FAILED_TO_TAKE_SNAPSHOT,
+        error: error.message
+      });
+    });
+};
 
 export const openFeeder = () => dispatch => {
   url = `${Config.API_URL}` + "/on";
