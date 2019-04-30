@@ -8,7 +8,9 @@ import {
   closeFeeder,
   openFeeder,
   resetFeeder,
-  getFeederState
+  getFeederState,
+  getSnapShot,
+  takeSnapShot
 } from "../../actions/feeder";
 
 export class CatFeeder extends Component {
@@ -98,6 +100,28 @@ export class CatFeeder extends Component {
           >
             <Text style={styles.text}>Stop Feeder</Text>
           </Button>
+          <Button
+            style={{
+              ...styles.button,
+              backgroundColor: "blue"
+            }}
+            onPress={() => {
+              this.props.takeSnapShot();
+            }}
+          >
+            <Text style={styles.text}>Take Snapshot</Text>
+          </Button>
+          <Button
+            style={{
+              ...styles.button,
+              backgroundColor: "blue"
+            }}
+            onPress={() => {
+              this.props.getSnapShot();
+            }}
+          >
+            <Text style={styles.text}>Get Snapshot</Text>
+          </Button>
         </View>
       </View>
     );
@@ -112,7 +136,9 @@ const mapDispatchToProps = {
   openFeeder,
   closeFeeder,
   resetFeeder,
-  getFeederState
+  getFeederState,
+  getSnapShot,
+  takeSnapShot
 };
 
 const styles = StyleSheet.create({
