@@ -42,13 +42,12 @@ export const getSnapShot = () => dispatch => {
 
   Axios.get(url)
     .then(res => res.data)
-    .then(data => console.log(data))
-    // .then(data => {
-    //   dispatch({
-    //     type: feeder.GET_SNAPSHOT,
-    //     payload: data
-    //   });
-    // })
+    .then(data => {
+      dispatch({
+        type: feeder.GET_SNAPSHOT,
+        payload: data
+      });
+    })
     .catch(error => {
       dispatch({
         type: feeder.FAILED_TO_GET_SNAPSHOT,
