@@ -51,7 +51,7 @@ export const getSnapShot = () => dispatch => {
     .catch(error => {
       dispatch({
         type: feeder.FAILED_TO_GET_SNAPSHOT,
-        error: error.message
+        payload: error.message
       });
     });
 };
@@ -70,7 +70,7 @@ export const takeSnapShot = () => dispatch => {
     .catch(error => {
       dispatch({
         type: feeder.FAILED_TO_TAKE_SNAPSHOT,
-        error: error.message
+        payload: error.message
       });
     });
 };
@@ -89,7 +89,7 @@ export const openFeeder = () => dispatch => {
     .catch(error => {
       dispatch({
         type: feeder.FAILED_TO_OPEN_FEEDER,
-        error: error.message
+        payload: error.message
       });
     });
 };
@@ -108,7 +108,7 @@ export const closeFeeder = () => dispatch => {
     .catch(error => {
       dispatch({
         type: feeder.FAILED_TO_CLOSE_FEEDER,
-        error: error.message
+        payload: error.message
       });
     });
 };
@@ -127,7 +127,7 @@ export const resetFeeder = () => dispatch => {
     .catch(error => {
       dispatch({
         type: feeder.FAILED_TO_RESET_FEEDERR,
-        error: error.message
+        payload: error.message
       });
     });
 };
