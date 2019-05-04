@@ -34,12 +34,25 @@ export default (state = {}, action) => {
         ...state,
         serverMessage: action.payload
       };
+    
     case feeder.FAILED_TO_GET_FEEDER_STATE:
       return {
         ...state,
         error: action.payload
       };
-      case feeder.GET_SNAPSHOT:
+    
+    case feeder.TAKE_SNAPSHOT:
+      return {
+        ...state,
+        serverMessage: action.payload
+      };
+    case feeder.FAILED_TO_TAKE_SNAPSHOT:
+      return {
+        ...state,
+        error: action.payload
+      };
+
+    case feeder.GET_SNAPSHOT:
       return {
         ...state,
         serverMessage: action.payload
