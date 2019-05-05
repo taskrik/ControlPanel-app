@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { createAppContainer, createStackNavigator } from "react-navigation";
 import HomePage from "./src/components/screens/HomePage";
-import CatFeeder from "./src/components/screens/CatFeeder"
+import CatFeeder from "./src/components/screens/CatFeeder";
+import CameraView from "./src/components/screens/CameraView";
 
 const AppNavigator = createStackNavigator(
   {
@@ -12,7 +13,10 @@ const AppNavigator = createStackNavigator(
       }
     },
     CatFeeder: {
-      screen: CatFeeder,
+      screen: CatFeeder
+    },
+    CCTV: {
+      screen: CameraView
     }
   },
   {
