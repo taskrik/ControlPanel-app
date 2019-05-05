@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Button } from "native-base";
 import { connect } from "react-redux";
 
@@ -24,18 +25,34 @@ export class CatFeeder extends Component {
 
   render() {
     const { serverMessage } = this.props.feeder;
+    const { navigation } = this.props
     return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        {serverMessage && serverMessage.images && (
-          <View style={{ width: "100%", height: 300 }}>
-            <Image
-              style={{ width: 300, height: 300 }}
-              source={{
-                uri: `http://192.168.178:3000/` + `${serverMessage.images[0]}`
-              }}
-            />
-          </View>
-        )}
+      <View style={{ flex: 1, alignItems: "center" }}>
+        <TouchableOpacity
+          style={{
+            width: 100,
+            backgroundColor: "blue",
+            marginVertical: 30,
+            alignItems: "center",
+            borderRadius: 20,
+            borderWidth: 0.5,
+            padding: 5,
+            justifyContent: "center"
+          }}
+          onPress={() => navigation.navigate('CCTV')}
+        >
+          <Icon name="cctv" size={50} color="white" />
+          <Text
+            style={{
+              fontSize: 18,
+              lineHeight: 20,
+              color: "white",
+              fontWeight: "bold"
+            }}
+          >
+            CCTV
+          </Text>
+        </TouchableOpacity>
         <View style={styles.messageContainer}>
           {!serverMessage && (
             <Text style={{ fontSize: 18 }}>Its feeding time!</Text>
@@ -137,6 +154,11 @@ const mapDispatchToProps = {
   takeSnapShot
 };
 
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(CatFeeder);
+
 const styles = StyleSheet.create({
   button: {
     width: 150,
@@ -156,8 +178,3 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CatFeeder);
