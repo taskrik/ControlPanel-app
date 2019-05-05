@@ -10,10 +10,8 @@ const feeder = {
   FAILED_TO_RESET_FEEDERR: "feeder/FAILED_TO_RESET_FEEDER",
   GET_FEEDER_STATE: "feeder/GET_FEEDER_STATE",
   FAILED_TO_GET_FEEDER_STATE: "feeder/FAILED_TO_GET_FEEDER_STATE",
-  GET_SNAPSHOT: "feeder/GET_SNAPSHOT",
-  FAILED_TO_GET_SNAPSHOT: "feeder/FAILED_TO_GET_SNAPSHOT",
-  TAKE_SNAPSHOT: "feeder/TAKE_SNAPSHOT",
-  FAILED_TO_TAKE_SNAPSHOT: "feeder/FAILED_TO_TAKE_SNAPSHOT"
+  GET_STREAM: "feeder/GET_STREAM",
+  FAILED_TO_GET_STREAM: "feeder/FAILED_TO_GET_STREAM"
 };
 
 export default feeder;
@@ -37,39 +35,21 @@ export const getFeederState = () => dispatch => {
     });
 };
 
-export const getSnapShot = () => dispatch => {
-  url = `${Config.API_URL}` + "/snapshot/get";
+export const getLiveStream = () => dispatch => {
+  url = `${Config.API_URL}` + "/cctv/on";
+  console.log("url", url);
 
   Axios.get(url)
     .then(res => res.data)
     .then(data => {
       dispatch({
-        type: feeder.GET_SNAPSHOT,
+        type: feeder.GET_STREAM,
         payload: data
       });
     })
     .catch(error => {
       dispatch({
-        type: feeder.FAILED_TO_GET_SNAPSHOT,
-        payload: error.message
-      });
-    });
-};
-
-export const takeSnapShot = () => dispatch => {
-  url = `${Config.API_URL}` + "/snapshot/take";
-
-  Axios.post(url)
-    .then(res => res.data)
-    .then(data => {
-      dispatch({
-        type: feeder.TAKE_SNAPSHOT,
-        payload: data
-      });
-    })
-    .catch(error => {
-      dispatch({
-        type: feeder.FAILED_TO_TAKE_SNAPSHOT,
+        type: feeder.FAILED_TO_GET_STREAM,
         payload: error.message
       });
     });
