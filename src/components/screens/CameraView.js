@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { View, Text, WebView, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 import { getLiveStream } from "../../actions/feeder";
+import { WebView } from "react-native-webview";
 
 export class CameraView extends Component {
   state = {
@@ -19,15 +20,19 @@ export class CameraView extends Component {
       <View
         style={{
           flex: 1,
-          alignItems: "center",
-          marginTop: 50
+          alignItems: "center"
         }}
       >
         <View>
           {error ? (
-            <Text style={{color: 'red', fontSize: 20, fontWeight: 'bold'}}>Something went wrong...</Text>
+            <Text style={{ color: "red", fontSize: 20, fontWeight: "bold" }}>
+              Something went wrong...
+            </Text>
           ) : (
-            <Text style={{color: 'blue', fontSize: 20, fontWeight: 'bold'}}> Live Stream </Text>
+            <Text style={{ color: "blue", fontSize: 20, fontWeight: "bold" }}>
+              {" "}
+              Live Stream{" "}
+            </Text>
           )}
         </View>
         {isLoading && (
@@ -41,18 +46,17 @@ export class CameraView extends Component {
           </View>
         )}
         {liveStream && (
-          <View style={{ width: "100%", height: 500, marginLeft: 50, marginTop: 20 }}>
-            <WebView
-              onLoadStart={() => this.setState({ isLoading: true })}
-              onLoadEnd={() => this.setState({ isLoading: false })}
-              onError={() =>
-                this.setState({
-                  error: true
-                })
-              }
-              source={{ uri: "http://192.168.178.21:3000/feeding/cctv/on" }}
-            />
-          </View>
+          <WebView
+            style={{width: 300}}
+            onLoadStart={() => this.setState({ isLoading: true })}
+            onLoadEnd={() => this.setState({ isLoading: false })}
+            onError={() =>
+              this.setState({
+                error: true
+              })
+            }
+            source={{ uri: "http://192.168.178.21:3000/feeding/cctv/on" }}
+          />
         )}
       </View>
     );

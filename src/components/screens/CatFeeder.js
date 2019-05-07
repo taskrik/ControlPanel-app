@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { Button } from "native-base";
 import { connect } from "react-redux";
+import Config from "react-native-config";
 
 import {
   closeFeeder,
@@ -25,7 +26,8 @@ export class CatFeeder extends Component {
 
   render() {
     const { serverMessage } = this.props.feeder;
-    const { navigation } = this.props
+    const { navigation } = this.props;
+
     return (
       <View style={{ flex: 1, alignItems: "center" }}>
         <TouchableOpacity
@@ -39,7 +41,7 @@ export class CatFeeder extends Component {
             padding: 5,
             justifyContent: "center"
           }}
-          onPress={() => navigation.navigate('CCTV')}
+          onPress={() => navigation.navigate("CCTV")}
         >
           <Icon name="cctv" size={50} color="white" />
           <Text
