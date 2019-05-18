@@ -16,8 +16,10 @@ const feeder = {
 
 export default feeder;
 
-export const getFeederState = () => dispatch => {
-  url = `${Config.API_URL}`;
+export const getFeederState = env => dispatch => {
+  env === "HOME"
+    ? (url = `${Config.API_URL_HOME}`)
+    : (url = `${Config.API_URL_OUT}`);
 
   Axios.get(url)
     .then(res => res.data)
@@ -35,9 +37,10 @@ export const getFeederState = () => dispatch => {
     });
 };
 
-export const getLiveStream = () => dispatch => {
-  url = `${Config.API_URL}` + "/cctv/on";
-  console.log("url", url);
+export const getLiveStream = env => dispatch => {
+  env === "HOME"
+    ? (url = `${Config.API_URL_HOME}/cctv/on`)
+    : (url = `${Config.API_URL_OUT}/cctv/on`);
 
   Axios.get(url)
     .then(res => res.data)
@@ -55,8 +58,10 @@ export const getLiveStream = () => dispatch => {
     });
 };
 
-export const openFeeder = () => dispatch => {
-  url = `${Config.API_URL}` + "/on";
+export const openFeeder = env => dispatch => {
+  env === "HOME"
+    ? (url = `${Config.API_URL_HOME}/on`)
+    : (url = `${Config.API_URL_OUT}/on`);
 
   Axios.post(url)
     .then(res => res.data)
@@ -74,8 +79,10 @@ export const openFeeder = () => dispatch => {
     });
 };
 
-export const closeFeeder = () => dispatch => {
-  url = `${Config.API_URL}/off`;
+export const closeFeeder = env => dispatch => {
+  env === "HOME"
+    ? (url = `${Config.API_URL_HOME}/off`)
+    : (url = `${Config.API_URL_OUT}/off`);
 
   Axios.post(url)
     .then(res => res.data)
@@ -93,8 +100,10 @@ export const closeFeeder = () => dispatch => {
     });
 };
 
-export const resetFeeder = () => dispatch => {
-  url = `${Config.API_URL}/reset`;
+export const resetFeeder = env => dispatch => {
+  env === "HOME"
+    ? (url = `${Config.API_URL_HOME}/reset`)
+    : (url = `${Config.API_URL_OUT}/reset`);
 
   Axios.post(url)
     .then(res => res.data)
