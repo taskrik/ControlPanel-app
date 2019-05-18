@@ -1,18 +1,9 @@
-import React, { Component } from "react";
-import { Text, View, StyleSheet, Image, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { Button } from "native-base";
-import { connect } from "react-redux";
-import Config from "react-native-config";
-
-import {
-  closeFeeder,
-  openFeeder,
-  resetFeeder,
-  getFeederState,
-  getSnapShot,
-  takeSnapShot
-} from "../../actions/feeder";
+import { Button } from 'native-base';
+import React, { Component } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { connect } from 'react-redux';
+import { closeFeeder, getFeederState, getSnapShot, openFeeder, resetFeeder, takeSnapShot } from '../../actions/feeder';
 
 export class CatFeeder extends Component {
   state = {
@@ -21,11 +12,13 @@ export class CatFeeder extends Component {
   };
 
   componentDidMount() {
-    this.props.getFeederState();
+    const { env } = this.props.changeEnv;
+    this.props.getFeederState(env);
   }
 
   render() {
     const { serverMessage } = this.props.feeder;
+    const { env } = this.props.changeEnv;
     const { navigation } = this.props;
 
     return (
@@ -81,7 +74,7 @@ export class CatFeeder extends Component {
                       Last: {serverMessage.feederInfo.hours[0]}
                     </Text>
 
-                    <TouchableOpacity onPress={() => this.props.resetFeeder()}>
+                    <TouchableOpacity onPress={() => this.props.resetFeeder(env)}>
                       <Text
                         style={{ fontSize: 20, marginBottom: 20, color: "red" }}
                       >
@@ -115,7 +108,7 @@ export class CatFeeder extends Component {
                 disableOpenButton: !this.state.disableOpenButton,
                 disableCloseButton: !this.state.disableCloseButton
               });
-              this.props.openFeeder();
+              this.props.openFeeder(env);
             }}
             disabled={this.state.disableOpenButton}
           >
@@ -132,7 +125,7 @@ export class CatFeeder extends Component {
                 disableOpenButton: !this.state.disableOpenButton,
                 disableCloseButton: !this.state.disableCloseButton
               });
-              this.props.closeFeeder();
+              this.props.closeFeeder(env);
             }}
           >
             <Text style={styles.text}>Stop Feeder</Text>
@@ -144,7 +137,8 @@ export class CatFeeder extends Component {
 }
 
 const mapStateToProps = state => ({
-  feeder: state.feeder
+  feeder: state.feeder,
+  changeEnv: state.changeEnv
 });
 
 const mapDispatchToProps = {
