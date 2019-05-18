@@ -10,7 +10,8 @@ export class CameraView extends Component {
     error: false
   };
   componentDidMount() {
-    this.props.getLiveStream();
+    const { env } = this.props.changeEnv
+    this.props.getLiveStream(env);
   }
 
   render() {
@@ -64,7 +65,8 @@ export class CameraView extends Component {
 }
 
 const mapStateToProps = state => ({
-  feeder: state.feeder
+  feeder: state.feeder,
+  changeEnv: state.changeEnv
 });
 
 const mapDispatchToProps = { getLiveStream };
