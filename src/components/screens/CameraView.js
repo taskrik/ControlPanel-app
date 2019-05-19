@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import { connect } from "react-redux";
 import { getLiveStream } from "../../actions/feeder";
 import { WebView } from "react-native-webview";
+import { Button } from "native-base";
 
 export class CameraView extends Component {
   state = {
@@ -10,12 +11,13 @@ export class CameraView extends Component {
     error: false
   };
   componentDidMount() {
-    const { env } = this.props.changeEnv
+    const { env } = this.props.changeEnv;
     this.props.getLiveStream(env);
   }
 
   render() {
     const { liveStream } = this.props.feeder;
+    const { env } = this.props.changeEnv;
     const { isLoading, error } = this.state;
     return (
       <View
@@ -24,18 +26,21 @@ export class CameraView extends Component {
           alignItems: "center"
         }}
       >
-        <View>
-          {error ? (
+        {error ? (
+          <View>
             <Text style={{ color: "red", fontSize: 20, fontWeight: "bold" }}>
               Something went wrong...
             </Text>
-          ) : (
+          </View>
+        ) : (
+          <View>
             <Text style={{ color: "blue", fontSize: 20, fontWeight: "bold" }}>
               {" "}
               Live Stream{" "}
             </Text>
-          )}
-        </View>
+          </View>
+        )}
+
         {isLoading && (
           <View
             style={{
@@ -47,18 +52,33 @@ export class CameraView extends Component {
           </View>
         )}
         {liveStream && (
-          <WebView
-            style={{width: 300}}
-            onLoadStart={() => this.setState({ isLoading: true })}
-            onLoadEnd={() => this.setState({ isLoading: false })}
-            onError={() =>
-              this.setState({
-                error: true
-              })
-            }
-            source={{ uri: "http://192.168.178.21:3000/feeding/cctv/on" }}
-          />
+          <View style={{ backgroundColor: 'red', flex:1}}>
+            <WebView
+              style={{ width: 300, height:300 }}
+              onLoadStart={() => this.setState({ isLoading: true })}
+              onLoadEnd={() => this.setState({ isLoading: false })}
+              onError={() =>
+                this.setState({
+                  error: true
+                })
+              }
+              source={{ uri: "http://192.168.178.21:3000/feeding/cctv/on" }}
+            />
+          </View>
         )}
+        <View style={{flex:1}}>
+          <Button
+            style={{
+              ...styles.button,
+              backgroundColor: "blue"
+            }}
+            onPress={() => {
+              this.props.getLiveStream(env);
+            }}
+          >
+            <Text style={styles.text}>Open Camera</Text>
+          </Button>
+        </View>
       </View>
     );
   }
@@ -75,3 +95,15 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(CameraView);
+
+const styles = StyleSheet.create({
+  button: {
+    width: 150,
+    height: 60,
+    marginBottom: 20,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  text: { fontSize: 18, color: "white", fontWeight: "bold" }
+});
